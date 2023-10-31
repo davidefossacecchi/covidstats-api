@@ -34,7 +34,7 @@ class GithubFetcher implements FetcherInterface
         if ($this->source instanceof SourceListDescriptorInterface) {
             foreach ($responseContent as $file) {
                 $fileUrl = $file['download_url'];
-                if ($this->source->isValidSource($fileUrl)) {
+                if ($this->source->isValidSource($fileUrl, $range)) {
                     $records = array_merge($records, $this->recordsExtractor->extractRecords($fileUrl));
                 }
             }

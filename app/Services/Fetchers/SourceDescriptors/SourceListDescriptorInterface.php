@@ -6,5 +6,5 @@ use App\Services\Ranges\DateRange;
 
 interface SourceListDescriptorInterface
 {
-    public function isValidSource(string|array $source): bool;
+    public function isValidSource(string|array $source, DateRange $range): bool;
 }
