@@ -14,7 +14,7 @@ class RecordIterator implements \Iterator, \Countable
     public function current(): mixed
     {
         if (false === isset($this->cache[$this->index])) {
-            $this->cache[$this->index] = new $this->recordClass[$this->rows[$this->index]];
+            $this->cache[$this->index] = new $this->recordClass($this->rows[$this->index]);
         }
         return $this->cache[$this->index];
     }
