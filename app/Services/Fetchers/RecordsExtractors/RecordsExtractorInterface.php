@@ -9,5 +9,5 @@ use App\Services\Ranges\DateRange;
  */
 interface RecordsExtractorInterface
 {
-    public function extractRecords(string|array $resource, DateRange $range): array;
+    public function extractRecords(string|array $resource): array;
 }

@@ -4,6 +4,7 @@ namespace App\Services\Fetchers;
 
 use App\Services\Fetchers\SourceDescriptors\SourceDescriptorInterface;
 use App\Services\Ranges\DateRange;
+use App\Services\Records\DateRangeFilter;
 use App\Services\Records\RecordIterator;
 use App\Services\Records\ValidFilter;
 
@@ -19,6 +20,6 @@ trait CreatesRecordsIterator
         $recordClass = $this->getSourceDescriptor()->getRecordClass();
 
         $iterator = new RecordIterator($records, $recordClass);
-        return new ValidFilter($iterator);
+        return new DateRangeFilter(ValidFilter($iterator), $range);
     }
 }

@@ -2,16 +2,18 @@
 
 namespace App\Services\Fetchers\RecordsExtractors;
 
-use App\Services\Ranges\DateRange;
 use GuzzleHttp\Client;
 
 class CsvExtractor implements RecordsExtractorInterface
 {
-    public function extractRecords(string|array $resource, DateRange $range): array
+    public function __construct(private readonly Client $client)
+    {
+    }
+
+    public function extractRecords(string|array $resource): array
     {
         $records = [];
-        $client = new Client();
-        $response = $client->get($resource);
+        $response = $this->client->get($resource);
         $content = $response->getBody();
         $rows = explode("\n", $content);
         $header = [];

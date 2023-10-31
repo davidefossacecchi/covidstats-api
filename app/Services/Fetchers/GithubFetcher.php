@@ -5,13 +5,15 @@ use App\Services\Fetchers\RecordsExtractors\RecordsExtractorInterface;
 use App\Services\Fetchers\SourceDescriptors\SourceDescriptorInterface;
 use App\Services\Fetchers\SourceDescriptors\SourceListDescriptorInterface;
 use App\Services\Ranges\DateRange;
-use App\Services\Records\RecordIterator;
-use App\Services\Records\ValidFilter;
 use GuzzleHttp\Client;
 class GithubFetcher implements FetcherInterface
 {
     use CreatesRecordsIterator;
-    public function __construct(private readonly SourceDescriptorInterface $source, private readonly RecordsExtractorInterface $recordsExtractor)
+    public function __construct(
+        private readonly Client $client,
+        private readonly SourceDescriptorInterface $source,
+        private readonly RecordsExtractorInterface $recordsExtractor
+    )
     {
     }
 
@@ -24,9 +26,8 @@ class GithubFetcher implements FetcherInterface
     public function fetch(DateRange $range): array
     {
         $records = [];
-        $client = new Client();
 
-        $response = $client->get($this->source->getResourceUrl());
+        $response = $this->client->get($this->source->getResourceUrl());
 
         $responseContent = json_decode($response->getBody(), true);
 
@@ -34,12 +35,12 @@ class GithubFetcher implements FetcherInterface
             foreach ($responseContent as $file) {
                 $fileUrl = $file['download_url'];
                 if ($this->source->isValidSource($fileUrl)) {
-                    $records = array_merge($records, $this->recordsExtractor->extractRecords($fileUrl, $range));
+                    $records = array_merge($records, $this->recordsExtractor->extractRecords($fileUrl));
                 }
             }
         } else {
             $fileUrl = $responseContent['download_url'];
-            $records = array_merge($records, $this->recordsExtractor->extractRecords($fileUrl, $range));
+            $records = $this->recordsExtractor->extractRecords($fileUrl);
         }
 
         return $records;
