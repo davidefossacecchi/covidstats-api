@@ -1,5 +1,6 @@
 <?php
 namespace Tests;
+use App\Services\Fetchers\RecordsExtractors\CountriesApiExtractor;
 use App\Services\Fetchers\RecordsExtractors\CsvExtractor;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
@@ -33,6 +34,75 @@ class ExtractorTest extends TestCase
 
         $extractor = new CsvExtractor($client);
         $records = $extractor->extractRecords('https://not.a-real-url.com');
+        $this->assertEquals($expected, $records);
+    }
+
+    public function testApiRecordsAreConvertedCorrectly()
+    {
+        $data = [
+            'Afghanistan' => [
+                [
+                    "date" => "2020-1-22",
+                    "confirmed" => 0,
+                    "deaths" => 0,
+                    "recovered" => 0
+                ],
+                [
+                    "date" => "2020-1-23",
+                    "confirmed" => 0,
+                    "deaths" => 0,
+                    "recovered" => 0
+                ]
+            ],
+            "Italy" => [
+                [
+                    "date" => "2020-1-22",
+                    "confirmed" => 1,
+                    "deaths" => 2,
+                    "recovered" => 3
+                ],
+                [
+                    "date" => "2020-1-23",
+                    "confirmed" => 4,
+                    "deaths" => 5,
+                    "recovered" => 6
+                ]
+            ],
+        ];
+
+        $expected = [
+            [
+                "country" => "Afghanistan",
+                "date" => "2020-1-22",
+                "confirmed" => 0,
+                "deaths" => 0,
+                "recovered" => 0
+            ],
+            [
+                "country" => "Afghanistan",
+                "date" => "2020-1-23",
+                "confirmed" => 0,
+                "deaths" => 0,
+                "recovered" => 0
+            ],
+            [
+                "country" => "Italy",
+                "date" => "2020-1-22",
+                "confirmed" => 1,
+                "deaths" => 2,
+                "recovered" => 3
+            ],
+            [
+                "country" => "Italy",
+                "date" => "2020-1-23",
+                "confirmed" => 4,
+                "deaths" => 5,
+                "recovered" => 6
+            ]
+        ];
+
+        $extractor = new CountriesApiExtractor();
+        $records = $extractor->extractRecords($data);
         $this->assertEquals($expected, $records);
     }
 }
