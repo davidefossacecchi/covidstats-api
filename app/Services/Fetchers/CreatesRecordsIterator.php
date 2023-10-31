@@ -20,6 +20,6 @@ trait CreatesRecordsIterator
         $recordClass = $this->getSourceDescriptor()->getRecordClass();
 
         $iterator = new RecordIterator($records, $recordClass);
-        return new DateRangeFilter(ValidFilter($iterator), $range);
+        return new DateRangeFilter(new ValidFilter($iterator), $range);
     }
 }
