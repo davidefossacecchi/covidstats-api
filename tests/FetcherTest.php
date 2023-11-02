@@ -1,7 +1,7 @@
 <?php
 namespace Tests;
+use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
 use App\Services\Fetchers\GithubFetcher;
-use App\Services\Fetchers\SourceDescriptors\SourceDescriptorInterface;
 use App\Services\Ranges\DateRange;
 use App\Services\Records\RegionRecord;
 

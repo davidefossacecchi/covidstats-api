@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Services\Fetchers\RecordsExtractors;
-
-use App\Services\Ranges\DateRange;
+namespace App\Services\Fetchers\Contracts;
 
 /**
  * Extract the records from the resource

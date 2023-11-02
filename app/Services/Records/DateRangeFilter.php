@@ -3,6 +3,7 @@
 namespace App\Services\Records;
 
 use App\Services\Ranges\DateRange;
+use App\Services\Records\Contracts\RecordInterface;
 use Iterator;
 
 class DateRangeFilter extends \FilterIterator implements \Countable

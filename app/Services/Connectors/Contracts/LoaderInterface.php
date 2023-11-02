@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Loaders;
+namespace App\Services\Connectors\Contracts;
 
 interface LoaderInterface
 {

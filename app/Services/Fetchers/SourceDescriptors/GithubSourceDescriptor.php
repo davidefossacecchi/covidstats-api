@@ -2,6 +2,8 @@
 
 namespace App\Services\Fetchers\SourceDescriptors;
 
+use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
+
 class GithubSourceDescriptor implements SourceDescriptorInterface
 {
     use IsRecordSource;

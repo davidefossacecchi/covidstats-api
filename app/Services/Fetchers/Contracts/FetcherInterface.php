@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Fetchers;
+namespace App\Services\Fetchers\Contracts;
 
 use App\Services\Ranges\DateRange;
 

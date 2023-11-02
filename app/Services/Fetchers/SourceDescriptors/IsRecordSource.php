@@ -2,7 +2,7 @@
 
 namespace App\Services\Fetchers\SourceDescriptors;
 
-use App\Services\Records\RecordInterface;
+use App\Services\Records\Contracts\RecordInterface;
 
 trait IsRecordSource
 {

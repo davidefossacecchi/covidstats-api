@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Records;
+namespace App\Services\Records\Contracts;
 
 interface RecordInterface
 {

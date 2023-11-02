@@ -2,7 +2,7 @@
 
 namespace App\Services\Fetchers;
 
-use App\Services\Fetchers\SourceDescriptors\SourceDescriptorInterface;
+use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
 use App\Services\Ranges\DateRange;
 use App\Services\Records\DateRangeFilter;
 use App\Services\Records\RecordIterator;

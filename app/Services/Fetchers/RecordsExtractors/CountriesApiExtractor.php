@@ -2,6 +2,8 @@
 
 namespace App\Services\Fetchers\RecordsExtractors;
 
+use App\Services\Fetchers\Contracts\RecordsExtractorInterface;
+
 class CountriesApiExtractor implements RecordsExtractorInterface
 {
     public function extractRecords(array|string $resource): array

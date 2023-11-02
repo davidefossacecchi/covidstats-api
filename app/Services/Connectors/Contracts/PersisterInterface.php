@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Persisters;
+namespace App\Services\Connectors\Contracts;
 
-use App\Services\Records\RecordInterface;
+use App\Services\Records\Contracts\RecordInterface;
 
 interface PersisterInterface
 {

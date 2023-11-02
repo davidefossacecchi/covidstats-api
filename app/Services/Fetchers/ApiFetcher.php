@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Services\Fetchers;
-use App\Services\Fetchers\RecordsExtractors\RecordsExtractorInterface;
-use App\Services\Fetchers\SourceDescriptors\SourceDescriptorInterface;
-use App\Services\Fetchers\SourceDescriptors\SourceListDescriptorInterface;
+use App\Services\Fetchers\Contracts\FetcherInterface;
+use App\Services\Fetchers\Contracts\RecordsExtractorInterface;
+use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
+use App\Services\Fetchers\Contracts\SourceListDescriptorInterface;
 use App\Services\Ranges\DateRange;
 use GuzzleHttp\Client;
+
 class ApiFetcher implements FetcherInterface
 {
     use CreatesRecordsIterator;

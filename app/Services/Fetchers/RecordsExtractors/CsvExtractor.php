@@ -2,6 +2,7 @@
 
 namespace App\Services\Fetchers\RecordsExtractors;
 
+use App\Services\Fetchers\Contracts\RecordsExtractorInterface;
 use GuzzleHttp\Client;
 
 class CsvExtractor implements RecordsExtractorInterface

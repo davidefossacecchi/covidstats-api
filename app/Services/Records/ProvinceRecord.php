@@ -2,6 +2,8 @@
 
 namespace App\Services\Records;
 
+use App\Services\Records\Contracts\RecordInterface;
+
 class ProvinceRecord implements RecordInterface
 {
     private readonly string $locality;

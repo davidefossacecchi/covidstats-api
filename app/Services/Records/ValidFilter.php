@@ -2,6 +2,7 @@
 
 namespace App\Services\Records;
 
+use App\Services\Records\Contracts\RecordInterface;
 use Iterator;
 
 class ValidFilter extends \FilterIterator implements \Countable

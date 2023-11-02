@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Fetchers\SourceDescriptors;
+namespace App\Services\Fetchers\Contracts;
 
 /**
  * Describes the resource
