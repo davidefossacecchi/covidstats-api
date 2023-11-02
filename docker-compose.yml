@@ -15,7 +15,7 @@ services:
       MYSQL_ROOT: secret
       MYSQL_DATABASE: homestead
       MYSQL_USER: homestead
-      MYSQL_PASSWORD: homestead
+      MYSQL_PASSWORD: secret
       COMPOSER_MEMORY_LIMIT: -1
 
   nginx:
@@ -31,10 +31,10 @@ services:
     volumes:
       - mysqldata_covidstats:/var/lib/mysql
     environment:
-      MYSQL_ROOT: secret
+      MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: homestead
       MYSQL_USER: homestead
-      MYSQL_PASSWORD: homestead
+      MYSQL_PASSWORD: secret
     ports:
       - "3306:3306"
 
