@@ -4,7 +4,7 @@ namespace App\Services\Connectors\Contracts;
 
 interface LocalityConnectorInterface
 {
-    public function getLocality(string $type, string $name, int $externalId = null): array;
+    public function getLocalityId(LocalityTypes $type, string $name, int $externalId = null): int;
 
-    public function getLocalities(string $type): array;
+    public function getLocalities(LocalityTypes $type): array;
 }
