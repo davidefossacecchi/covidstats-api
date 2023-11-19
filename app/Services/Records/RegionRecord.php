@@ -17,8 +17,6 @@ class RegionRecord implements RecordInterface
 
     private readonly int $deaths;
 
-    private readonly int $swabs;
-
     private readonly ?\DateTimeInterface $date;
 
     public function __construct(array $row)
@@ -31,7 +29,7 @@ class RegionRecord implements RecordInterface
         $this->homeIsolations = (int)($row['isolamento_domiciliare'] ?? 0);
         $this->healed = (int)($row['dimessi_guariti'] ?? 0);
         $this->deaths = (int)($row['deceduti'] ?? 0);
-        $this->swabs = (int)($row['tamponi'] ?? 0);
+
         if (isset($row['data'])) {
             $this->date = \DateTime::createFromFormat('Y-m-d\TH:i:s', $row['data']);
         }
@@ -85,10 +83,5 @@ class RegionRecord implements RecordInterface
     public function getDeaths(): int
     {
         return $this->deaths;
-    }
-
-    public function getSwabs(): int
-    {
-        return $this->swabs;
     }
 }
