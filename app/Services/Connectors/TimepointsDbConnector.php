@@ -43,6 +43,7 @@ class TimepointsDbConnector implements DataPersisterInterface
         if (false === $found) {
             throw new \InvalidArgumentException('Persisting item transformer for record '.get_class($record). 'does not exixts');
         }
+
         // final flush
         foreach ($map as $collectionName => $collectionData) {
             $this->persistRows($collectionName, $collectionData['unique_keys'], $collectionData['rows']);
