@@ -11,9 +11,8 @@ use App\Services\Connectors\PersistingItemTransformers\PersistingCountryDataTran
 use App\Services\Connectors\PersistingItemTransformers\PersistingProvinceDataTransformer;
 use App\Services\Connectors\PersistingItemTransformers\PersistingRegionDataTransformer;
 use App\Services\Connectors\TimepointsDbConnector;
-use App\Services\Fetchers\ApiFetcher;
 use App\Services\Fetchers\Contracts\FetcherInterface;
-use App\Services\Fetchers\GithubFetcher;
+use App\Services\Fetchers\RecordsFetcher;
 use App\Services\Fetchers\SourceDescriptors\ApiSourceDescriptor;
 use App\Services\Fetchers\SourceDescriptors\GithubSourceDescriptor;
 use App\Services\Fetchers\SourceDescriptors\NullSourceDescriptor;
@@ -50,18 +49,18 @@ class AppServiceProvider extends ServiceProvider
             $name = 'fetcher.'.$dataDescriptor['data_type']->value;
             $fetcherNames[] = $name;
             $this->app->bind($name, function (Application $app) use ($dataDescriptor) {
-                $fetcher = $dataDescriptor['fetcher'];
+                $descriptor = $dataDescriptor['source_type'];
                 $extractor = $app->make($dataDescriptor['extractor']);
                 $list = $dataDescriptor['list'] ?? null;
                 $sourceDescriptor = new NullSourceDescriptor();
                 $recordClass = $dataDescriptor['record_type'];
-                switch($fetcher) {
-                    case GithubFetcher::class:
+                switch($descriptor) {
+                    case GithubSourceDescriptor::class:
                         $repository = $dataDescriptor['repository'];
                         $path = $dataDescriptor['path'];
                         $sourceDescriptor = new GithubSourceDescriptor($repository, $path, $recordClass);
                         break;
-                    case ApiFetcher::class:
+                    case ApiSourceDescriptor::class:
                         $url = $dataDescriptor['url'];
                         $sourceDescriptor = new ApiSourceDescriptor($url, $recordClass);
                 }
@@ -71,12 +70,7 @@ class AppServiceProvider extends ServiceProvider
                     $sourceDescriptor = new SourceDescriptorDecorator($sourceDescriptor, $listDescriptor);
                 }
 
-                /** @todo maybe can be replaced with only one class with different source descriptions */
-                return match ($fetcher) {
-                    GithubFetcher::class => new GithubFetcher($app->make(Client::class), $sourceDescriptor, $extractor),
-                    ApiFetcher::class => new ApiFetcher($app->make(Client::class), $sourceDescriptor, $extractor)
-                };
-
+                return new RecordsFetcher($app->make(Client::class), $sourceDescriptor, $extractor);
             });
         }
 

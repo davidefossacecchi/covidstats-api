@@ -4,7 +4,7 @@ return [
     [
         'data_type' => \App\Services\Connectors\Contracts\DataTypes::PROVINCE,
         'record_type' => \App\Services\Records\ProvinceRecord::class,
-        'fetcher' => \App\Services\Fetchers\GithubFetcher::class,
+        'source_type' => \App\Services\Fetchers\SourceDescriptors\GithubSourceDescriptor::class,
         'repository' => 'pcm-dpc/COVID-19',
         'path' => 'dati-province',
         'extractor' => \App\Services\Fetchers\RecordsExtractors\CsvExtractor::class,
@@ -16,7 +16,7 @@ return [
     [
         'data_type' => \App\Services\Connectors\Contracts\DataTypes::REGION,
         'record_type' => \App\Services\Records\RegionRecord::class,
-        'fetcher' => \App\Services\Fetchers\GithubFetcher::class,
+        'source_type' => \App\Services\Fetchers\SourceDescriptors\GithubSourceDescriptor::class,
         'repository' => 'pcm-dpc/COVID-19',
         'path' => 'dati-regioni',
         'extractor' => \App\Services\Fetchers\RecordsExtractors\CsvExtractor::class,
@@ -28,7 +28,7 @@ return [
     [
         'data_type' => \App\Services\Connectors\Contracts\DataTypes::COUNTRY,
         'record_type' => \App\Services\Records\CountryRecord::class,
-        'fetcher' => \App\Services\Fetchers\ApiFetcher::class,
+        'source_type' => \App\Services\Fetchers\SourceDescriptors\ApiSourceDescriptor::class,
         'url' => 'https://pomber.github.io/covid19/timeseries.json',
         'extractor' => \App\Services\Fetchers\RecordsExtractors\CountriesApiExtractor::class,
     ]

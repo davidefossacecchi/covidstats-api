@@ -1,7 +1,7 @@
 <?php
 namespace Tests;
 use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
-use App\Services\Fetchers\GithubFetcher;
+use App\Services\Fetchers\RecordsFetcher;
 use App\Services\Ranges\DateRange;
 use App\Services\Records\RegionRecord;
 
@@ -20,7 +20,7 @@ class FetcherTest extends TestCase
             // valid
             ['denominazione_regione' => 'Emilia-Romagna', 'data' => '2020-02-24T18:00:00'],
         ];
-        $fetcher = $this->getMockBuilder(GithubFetcher::class)
+        $fetcher = $this->getMockBuilder(RecordsFetcher::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['getSourceDescriptor', 'fetch'])
             ->getMock();

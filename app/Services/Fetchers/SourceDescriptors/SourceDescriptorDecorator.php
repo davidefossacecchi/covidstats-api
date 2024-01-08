@@ -22,6 +22,12 @@ class SourceDescriptorDecorator implements SourceDescriptorInterface, SourceList
         return $this->source->getRecordClass();
     }
 
+    public function getResourceToExtract($resourceDescription): mixed
+    {
+        return $this->source->getResourceToExtract($resourceDescription);
+    }
+
+
     public function isValidSource(array|string $source, DateRange $range): bool
     {
         return $this->listDescriptor->isValidSource($source, $range);

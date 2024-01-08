@@ -16,4 +16,10 @@ class NullSourceDescriptor implements SourceDescriptorInterface
         throw new \BadMethodCallException('Source descriptor not set');
     }
 
+    public function getResourceToExtract($resourceDescription): mixed
+    {
+        throw new \BadMethodCallException('Source descriptor not set');
+    }
+
+
 }

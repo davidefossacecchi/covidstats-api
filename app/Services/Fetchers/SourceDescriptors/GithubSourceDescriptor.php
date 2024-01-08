@@ -16,4 +16,9 @@ class GithubSourceDescriptor implements SourceDescriptorInterface
     {
         return 'https://api.github.com/repos/'.$this->repository.'/contents/'.$this->path;
     }
+
+    public function getResourceToExtract($resourceDescription): mixed
+    {
+        return $resourceDescription['download_url'];
+    }
 }

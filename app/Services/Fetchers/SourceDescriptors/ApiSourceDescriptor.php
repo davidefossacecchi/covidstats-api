@@ -17,5 +17,10 @@ class ApiSourceDescriptor implements SourceDescriptorInterface
         return $this->url;
     }
 
+    public function getResourceToExtract($resourceDescription): mixed
+    {
+        return $resourceDescription;
+    }
+
 
 }
