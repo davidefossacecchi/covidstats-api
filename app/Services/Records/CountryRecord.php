@@ -2,6 +2,7 @@
 
 namespace App\Services\Records;
 
+use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Records\Contracts\RecordInterface;
 
 class CountryRecord implements RecordInterface
@@ -52,5 +53,10 @@ class CountryRecord implements RecordInterface
     public function getTotalCases(): int
     {
         return $this->totalCases;
+    }
+
+    public static function getDataType(): DataTypes
+    {
+        return DataTypes::COUNTRY;
     }
 }

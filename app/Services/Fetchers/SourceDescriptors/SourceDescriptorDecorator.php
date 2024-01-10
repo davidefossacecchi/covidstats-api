@@ -2,6 +2,7 @@
 
 namespace App\Services\Fetchers\SourceDescriptors;
 
+use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
 use App\Services\Fetchers\Contracts\SourceListDescriptorInterface;
 use App\Services\Ranges\DateRange;
@@ -31,5 +32,10 @@ class SourceDescriptorDecorator implements SourceDescriptorInterface, SourceList
     public function isValidSource(array|string $source, DateRange $range): bool
     {
         return $this->listDescriptor->isValidSource($source, $range);
+    }
+
+    public function isDataTypeSource(DataTypes $type): bool
+    {
+        return $this->source->isDataTypeSource($type);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Console\Commands\FetchStatisticsCommand;
 use App\Services\Connectors\Contracts\DataPersisterInterface;
+use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Connectors\Contracts\LocalityConnectorInterface;
 use App\Services\Connectors\Contracts\PersistingItemTransformerInterface;
 use App\Services\Connectors\LocalityDbConnector;

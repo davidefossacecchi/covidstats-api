@@ -2,6 +2,7 @@
 
 namespace App\Services\Records;
 
+use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Records\Contracts\RecordInterface;
 
 class RegionRecord implements RecordInterface
@@ -83,5 +84,10 @@ class RegionRecord implements RecordInterface
     public function getDeaths(): int
     {
         return $this->deaths;
+    }
+
+    public static function getDataType(): DataTypes
+    {
+        return DataTypes::REGION;
     }
 }

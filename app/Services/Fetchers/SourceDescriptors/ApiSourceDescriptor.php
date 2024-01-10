@@ -21,6 +21,4 @@ class ApiSourceDescriptor implements SourceDescriptorInterface
     {
         return $resourceDescription;
     }
-
-
 }

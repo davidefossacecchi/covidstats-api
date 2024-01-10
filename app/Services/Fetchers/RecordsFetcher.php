@@ -2,6 +2,7 @@
 
 namespace App\Services\Fetchers;
 
+use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Fetchers\Contracts\FetcherInterface;
 use App\Services\Fetchers\Contracts\RecordsExtractorInterface;
 use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
@@ -23,6 +24,11 @@ class RecordsFetcher implements FetcherInterface
     protected function getSourceDescriptor(): SourceDescriptorInterface
     {
         return $this->source;
+    }
+
+    public function fetchDataType(DataTypes $type): bool
+    {
+        return $this->source->isDataTypeSource($type);
     }
 
 

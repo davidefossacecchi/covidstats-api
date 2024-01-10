@@ -2,6 +2,7 @@
 
 namespace App\Services\Fetchers\SourceDescriptors;
 
+use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
 
 class NullSourceDescriptor implements SourceDescriptorInterface
@@ -17,6 +18,11 @@ class NullSourceDescriptor implements SourceDescriptorInterface
     }
 
     public function getResourceToExtract($resourceDescription): mixed
+    {
+        throw new \BadMethodCallException('Source descriptor not set');
+    }
+
+    public function isDataTypeSource(DataTypes $type): bool
     {
         throw new \BadMethodCallException('Source descriptor not set');
     }

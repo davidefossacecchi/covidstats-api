@@ -2,6 +2,7 @@
 
 namespace App\Services\Fetchers\SourceDescriptors;
 
+use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Records\Contracts\RecordInterface;
 
 trait IsRecordSource
@@ -19,5 +20,10 @@ trait IsRecordSource
     public function getRecordClass(): string
     {
         return $this->recordClass;
+    }
+
+    public function isDataTypeSource(DataTypes $type): bool
+    {
+        return call_user_func($this->recordClass.'::getDataType') === $type;
     }
 }
