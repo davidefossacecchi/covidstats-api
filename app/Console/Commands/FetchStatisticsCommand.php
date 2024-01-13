@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Services\Connectors\Contracts\DataLoaderInterface;
+use App\Services\Connectors\Contracts\DataPersisterInterface;
 use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Fetchers\Contracts\FetcherInterface;
-use http\Exception\InvalidArgumentException;
+use App\Services\Ranges\DateRange;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -19,10 +21,16 @@ class FetchStatisticsCommand extends Command
     protected $description = 'Fetch statistics from data sources';
 
     private array $fetchers;
-    public function __construct(FetcherInterface ...$fetchers)
+    public function __construct(
+        private readonly DataPersisterInterface $persister,
+        private readonly DataLoaderInterface $dataLoader,
+        FetcherInterface ...$fetchers
+    )
     {
         parent::__construct();
         $this->fetchers = $fetchers;
+        ini_set("memory_limit", "-1");
+        set_time_limit(0);
     }
 
     public function handle()
@@ -52,34 +60,42 @@ class FetchStatisticsCommand extends Command
         $types = $this->convertToDataType($tt);
 
         if (false == $refresh && false == empty($from)) {
-            $dt = \DateTime::createFromFormat('Y-m-d', $from);
-            if (false == $dt) {
+            $startDate = \DateTime::createFromFormat('Y-m-d', $from);
+            if (false == $startDate) {
                 $this->error("from date must be in Y-m-d format");
                 return 1;
             }
-
-            $startDate = $dt->format('Y-m-d');
         }
 
         $this->info("Fetching data for ".implode(', ', $tt));
 
         foreach ($types as $type) {
             try {
-
+                if (false == $refresh) {
+                    $fromDate = $startDate ?: $this->dataLoader->getMaxDateForCollection($type);
+                } else {
+                    $fromDate = null;
+                }
                 $msg = empty($fromDate)
                     ? "Fetching data for $type->name starting from the beginning"
-                    : "Fetching data for $type->name starting from $fromDate";
+                    : "Fetching data for $type->name starting from ".$fromDate->format('Y-m-d');
+
+                $dateRange = new DateRange($fromDate);
 
                 $this->info($msg.', wait!');
                 Log::info($msg);
 
                 $fetcher = $this->getFetcherForDataType($type);
-                dd($fetcher);
+                $records = $fetcher->pull($dateRange);
+                $this->info('Fetched '.count($records).' records for '.$type->name);
+                $this->info('Persisting');
+                $this->persister->persist($records);
 
             } catch (\Exception $ex) {
                 Log::error($ex->getMessage());
             }
         }
+        $this->info('DONE');
     }
 
     private function convertToDataType(array $stringTypes): array
@@ -89,7 +105,7 @@ class FetchStatisticsCommand extends Command
         foreach ($stringTypes as $stringType) {
             $type = DataTypes::tryFrom($stringType);
             if(empty($type)) {
-                throw new InvalidArgumentException("$stringType type does not exists");
+                throw new \InvalidArgumentException("$stringType type does not exists");
             }
             $types[] = $type;
         }

@@ -2,12 +2,15 @@
 
 namespace App\Services\Connectors;
 
+use App\Services\Connectors\Contracts\DataLoaderInterface;
 use App\Services\Connectors\Contracts\DataPersisterInterface;
+use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Connectors\Contracts\PersistingItemTransformerInterface;
+use App\Services\Ranges\DateRange;
 use App\Services\Records\RecordIterator;
 use Illuminate\Support\Facades\DB;
 
-class TimepointsDbConnector implements DataPersisterInterface
+class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterface
 {
     private array $itemTransformers;
     public function __construct(PersistingItemTransformerInterface ...$itemTransformers)
@@ -15,7 +18,7 @@ class TimepointsDbConnector implements DataPersisterInterface
         $this->itemTransformers = $itemTransformers;
     }
 
-    public function persist(RecordIterator $records): void
+    public function persist(\Iterator $records): void
     {
         $map = [];
         foreach ($records as $record) {
@@ -50,6 +53,23 @@ class TimepointsDbConnector implements DataPersisterInterface
         }
     }
 
+    public function load(array $localityIds, DateRange $range): array
+    {
+        return [];
+    }
+
+    public function getMaxDateForCollection(DataTypes $types): ?\DateTimeInterface
+    {
+        $maxDate = DB::table($types->value)
+            ->select(DB::raw('MAX(date) as max_date'))
+            ->value('max_date');
+
+        return isset($maxDate)
+            ? \DateTime::createFromFormat('Y-m-d', $maxDate)
+            : null;
+    }
+
+
     private function persistRows(string $table, array $uniqueKey, array $rows): void
     {
         if (count($rows) > 0) {
@@ -60,6 +80,5 @@ class TimepointsDbConnector implements DataPersisterInterface
                     array_keys($rows[0])
                 );
         }
-
     }
 }

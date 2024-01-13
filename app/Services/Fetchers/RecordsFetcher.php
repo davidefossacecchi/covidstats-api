@@ -37,8 +37,8 @@ class RecordsFetcher implements FetcherInterface
         $records = [];
 
         $response = $this->client->get($this->source->getResourceUrl());
-
         $responseContent = json_decode($response->getBody(), true);
+
 
         if ($this->source instanceof SourceListDescriptorInterface) {
             foreach ($responseContent as $file) {

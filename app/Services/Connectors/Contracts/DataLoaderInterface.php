@@ -7,4 +7,6 @@ use App\Services\Ranges\DateRange;
 interface DataLoaderInterface
 {
     public function load(array $localityIds, DateRange $range): array;
+
+    public function getMaxDateForCollection(DataTypes $types): ?\DateTimeInterface;
 }

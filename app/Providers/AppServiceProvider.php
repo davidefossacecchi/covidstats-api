@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Console\Commands\FetchStatisticsCommand;
+use App\Services\Connectors\Contracts\DataLoaderInterface;
 use App\Services\Connectors\Contracts\DataPersisterInterface;
 use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Connectors\Contracts\LocalityConnectorInterface;
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(LocalityConnectorInterface::class, LocalityDbConnector::class);
         $this->app->bind(DataPersisterInterface::class, TimepointsDbConnector::class);
+        $this->app->bind(DataLoaderInterface::class, TimepointsDbConnector::class);
 
         $this->app->when(TimepointsDbConnector::class)
             ->needs(PersistingItemTransformerInterface::class)
