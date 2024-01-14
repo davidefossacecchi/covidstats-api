@@ -7,32 +7,30 @@ use GuzzleHttp\Client;
 
 class CsvExtractor implements RecordsExtractorInterface
 {
-    public function __construct(private readonly Client $client)
+    public function __construct()
     {
     }
 
     public function extractRecords(string|array $resource): array
     {
         $records = [];
-        $response = $this->client->get($resource);
-        $content = $response->getBody();
-        $rows = explode("\n", $content);
+        $fileHandle = fopen($resource, 'r');
+
         $header = [];
-        foreach ($rows as $i => $row) {
-            // this is the last line
-            if (empty($row)) {
-                break;
-            }
-            $cells = str_getcsv($row);
+        $i = 0;
+        while (false !== $row = fgetcsv($fileHandle)) {
+
             if ($i === 0) {
-                $header = $cells;
+                $header = $row;
             } else {
                 $record = [];
-                foreach ($header as $i => $key) {
-                    $record[$key] = $cells[$i];
+                foreach ($header as $c => $key) {
+                    $record[$key] = $row[$c];
                 }
                 $records[] = $record;
             }
+
+            $i++;
         }
 
         return $records;
