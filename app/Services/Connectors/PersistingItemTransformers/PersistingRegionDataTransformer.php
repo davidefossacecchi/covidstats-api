@@ -34,7 +34,7 @@ class PersistingRegionDataTransformer implements PersistingItemTransformerInterf
     public function getRow(RecordInterface $record): array
     {
         /** @var RegionRecord $record */
-        $localityId = $this->localityConnector->getLocalityId(LocalityTypes::REGION, $record->getLocality());
+        $localityId = $this->localityConnector->getLocalityRecordId($record->getLocality());
         return [
             'locality_id' => $localityId,
             'icu_patients' => $record->getIcuPatients(),

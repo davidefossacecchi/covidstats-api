@@ -3,6 +3,7 @@
 namespace App\Services\Records;
 
 use App\Services\Connectors\Contracts\DataTypes;
+use App\Services\Connectors\Contracts\LocalityTypes;
 use App\Services\Records\Contracts\RecordInterface;
 
 class CountryRecord implements RecordInterface
@@ -35,9 +36,9 @@ class CountryRecord implements RecordInterface
         return $this->date;
     }
 
-    public function getLocality(): string
+    public function getLocality(): LocalityRecord
     {
-        return $this->locality;
+        return new LocalityRecord(LocalityTypes::COUNTRY, $this->locality);
     }
 
     public function getHealed(): int

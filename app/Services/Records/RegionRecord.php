@@ -3,11 +3,14 @@
 namespace App\Services\Records;
 
 use App\Services\Connectors\Contracts\DataTypes;
+use App\Services\Connectors\Contracts\LocalityTypes;
 use App\Services\Records\Contracts\RecordInterface;
 
 class RegionRecord implements RecordInterface
 {
     private readonly string $locality;
+
+    private readonly int $localityCode;
     private readonly int $totalPositives;
     private readonly int $totalCases;
     private readonly int $icuPatients;
@@ -23,6 +26,7 @@ class RegionRecord implements RecordInterface
     public function __construct(array $row)
     {
         $this->locality = $row['denominazione_regione'] ?? '';
+        $this->localityCode = $row['codice_regione'] ?? 0;
         $this->totalPositives = (int)($row['totale_positivi'] ?? 0);
         $this->totalCases = (int)($row['totale_casi'] ?? 0);
         $this->icuPatients = (int)($row['terapia_intensiva'] ?? 0);
@@ -38,7 +42,7 @@ class RegionRecord implements RecordInterface
 
     public function isValid(): bool
     {
-        return false === empty($this->locality) && isset($this->date);
+        return false === empty($this->locality) && isset($this->date) && false === empty($this->localityCode);
     }
 
     public function getDate(): \DateTimeInterface
@@ -46,9 +50,9 @@ class RegionRecord implements RecordInterface
         return $this->date;
     }
 
-    public function getLocality(): string
+    public function getLocality(): LocalityRecord
     {
-        return $this->locality;
+        return new LocalityRecord(LocalityTypes::REGION, $this->locality, $this->localityCode);
     }
 
     public function getTotalPositives(): int

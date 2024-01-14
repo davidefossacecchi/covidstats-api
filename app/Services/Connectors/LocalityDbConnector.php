@@ -4,6 +4,7 @@ namespace App\Services\Connectors;
 
 use App\Services\Connectors\Contracts\LocalityConnectorInterface;
 use App\Services\Connectors\Contracts\LocalityTypes;
+use App\Services\Records\LocalityRecord;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -12,6 +13,12 @@ class LocalityDbConnector implements LocalityConnectorInterface
     private const TABLE = 'locality';
 
     private static array $cache = [];
+
+    public function getLocalityRecordId(LocalityRecord $localityRecord): int
+    {
+        return $this->getLocalityId($localityRecord->getType(), $localityRecord->getName(), $localityRecord->getExternalId());
+    }
+
 
     public function getLocalityId(LocalityTypes $type, string $name, int $externalId = null): int
     {

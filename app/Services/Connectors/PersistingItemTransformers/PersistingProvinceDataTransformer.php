@@ -35,7 +35,7 @@ class PersistingProvinceDataTransformer implements PersistingItemTransformerInte
     public function getRow(RecordInterface $record): array
     {
         /** @var ProvinceRecord $record */
-        $localityId = $this->localityConnector->getLocalityId(LocalityTypes::PROVINCE, $record->getLocality());
+        $localityId = $this->localityConnector->getLocalityRecordId($record->getLocality());
         return [
             'locality_id' => $localityId,
             'total_cases' => $record->getTotalCases(),

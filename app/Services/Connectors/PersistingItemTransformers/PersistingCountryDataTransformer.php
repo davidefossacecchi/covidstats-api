@@ -36,7 +36,7 @@ class PersistingCountryDataTransformer implements PersistingItemTransformerInter
     public function getRow(RecordInterface $record): array
     {
         /** @var CountryRecord $record */
-        $localityId = $this->localityConnector->getLocalityId(LocalityTypes::PROVINCE, $record->getLocality());
+        $localityId = $this->localityConnector->getLocalityRecordId($record->getLocality());
         return [
             'locality_id' => $localityId,
             'healed' => $record->getHealed(),
