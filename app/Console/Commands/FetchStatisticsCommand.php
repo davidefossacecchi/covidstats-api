@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Services\Connectors\Contracts\DataLoaderInterface;
 use App\Services\Connectors\Contracts\DataPersisterInterface;
-use App\Services\Connectors\Contracts\DataTypes;
+use App\Services\Connectors\Contracts\DataType;
 use App\Services\Fetchers\Contracts\FetcherInterface;
 use App\Services\Ranges\DateRange;
 use Illuminate\Console\Command;
@@ -48,7 +48,7 @@ class FetchStatisticsCommand extends Command
         } else {
             $tt = array_map(function ($case) {
                 return $case->value;
-            }, DataTypes::cases());
+            }, DataType::cases());
         }
 
         if (false == empty($exclude)) {
@@ -56,7 +56,7 @@ class FetchStatisticsCommand extends Command
             $tt = array_diff($tt, $ee);
         }
 
-        /** @var DataTypes[] $types */
+        /** @var DataType[] $types */
         $types = $this->convertToDataType($tt);
 
         if (false == $refresh && false == empty($from)) {
@@ -103,7 +103,7 @@ class FetchStatisticsCommand extends Command
         $types = [];
 
         foreach ($stringTypes as $stringType) {
-            $type = DataTypes::tryFrom($stringType);
+            $type = DataType::tryFrom($stringType);
             if(empty($type)) {
                 throw new \InvalidArgumentException("$stringType type does not exists");
             }
@@ -112,7 +112,7 @@ class FetchStatisticsCommand extends Command
         return $types;
     }
 
-    private function getFetcherForDataType(DataTypes $type): FetcherInterface
+    private function getFetcherForDataType(DataType $type): FetcherInterface
     {
 
         foreach ($this->fetchers as $fetcher) {

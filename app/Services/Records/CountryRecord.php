@@ -2,8 +2,8 @@
 
 namespace App\Services\Records;
 
-use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Connectors\Contracts\LocalityTypes;
+use App\Services\Connectors\Contracts\DataType;
 use App\Services\Records\Contracts\RecordInterface;
 
 class CountryRecord implements RecordInterface
@@ -56,8 +56,8 @@ class CountryRecord implements RecordInterface
         return $this->totalCases;
     }
 
-    public static function getDataType(): DataTypes
+    public static function getDataType(): DataType
     {
-        return DataTypes::COUNTRY;
+        return DataType::COUNTRY;
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Services\Records;
 
-use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Connectors\Contracts\LocalityTypes;
+use App\Services\Connectors\Contracts\DataType;
 use App\Services\Records\Contracts\RecordInterface;
 
 class ProvinceRecord implements RecordInterface
@@ -47,8 +47,8 @@ class ProvinceRecord implements RecordInterface
         return $this->totalCases;
     }
 
-    public static function getDataType(): DataTypes
+    public static function getDataType(): DataType
     {
-        return DataTypes::PROVINCE;
+        return DataType::PROVINCE;
     }
 }

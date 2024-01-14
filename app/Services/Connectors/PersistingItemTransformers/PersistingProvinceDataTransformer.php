@@ -2,7 +2,7 @@
 
 namespace App\Services\Connectors\PersistingItemTransformers;
 
-use App\Services\Connectors\Contracts\DataTypes;
+use App\Services\Connectors\Contracts\DataType;
 use App\Services\Connectors\Contracts\LocalityConnectorInterface;
 use App\Services\Connectors\Contracts\LocalityTypes;
 use App\Services\Connectors\Contracts\PersistingItemTransformerInterface;
@@ -21,9 +21,9 @@ class PersistingProvinceDataTransformer implements PersistingItemTransformerInte
         return $record instanceof ProvinceRecord;
     }
 
-    public function getDataType(): DataTypes
+    public function getDataType(): DataType
     {
-        return DataTypes::PROVINCE;
+        return DataType::PROVINCE;
     }
 
 

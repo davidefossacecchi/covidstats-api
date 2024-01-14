@@ -2,7 +2,7 @@
 
 namespace App\Services\Connectors\Contracts;
 
-enum DataTypes: string
+enum DataType: string
 {
     case PROVINCE = 'province_data';
     case REGION = 'region_data';

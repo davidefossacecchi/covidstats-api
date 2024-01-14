@@ -4,7 +4,7 @@ namespace App\Services\Connectors;
 
 use App\Services\Connectors\Contracts\DataLoaderInterface;
 use App\Services\Connectors\Contracts\DataPersisterInterface;
-use App\Services\Connectors\Contracts\DataTypes;
+use App\Services\Connectors\Contracts\DataType;
 use App\Services\Connectors\Contracts\PersistingItemTransformerInterface;
 use App\Services\Ranges\DateRange;
 use App\Services\Records\RecordIterator;
@@ -58,7 +58,7 @@ class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterfa
         return [];
     }
 
-    public function getMaxDateForCollection(DataTypes $types): ?\DateTimeInterface
+    public function getMaxDateForCollection(DataType $types): ?\DateTimeInterface
     {
         $maxDate = DB::table($types->value)
             ->select(DB::raw('MAX(date) as max_date'))

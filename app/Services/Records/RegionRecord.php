@@ -2,8 +2,8 @@
 
 namespace App\Services\Records;
 
-use App\Services\Connectors\Contracts\DataTypes;
 use App\Services\Connectors\Contracts\LocalityTypes;
+use App\Services\Connectors\Contracts\DataType;
 use App\Services\Records\Contracts\RecordInterface;
 
 class RegionRecord implements RecordInterface
@@ -90,8 +90,8 @@ class RegionRecord implements RecordInterface
         return $this->deaths;
     }
 
-    public static function getDataType(): DataTypes
+    public static function getDataType(): DataType
     {
-        return DataTypes::REGION;
+        return DataType::REGION;
     }
 }

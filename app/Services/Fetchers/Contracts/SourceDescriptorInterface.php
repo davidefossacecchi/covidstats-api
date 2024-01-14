@@ -2,7 +2,7 @@
 
 namespace App\Services\Fetchers\Contracts;
 
-use App\Services\Connectors\Contracts\DataTypes;
+use App\Services\Connectors\Contracts\DataType;
 
 /**
  * Describes the resource
@@ -15,5 +15,5 @@ interface SourceDescriptorInterface
 
     public function getResourceToExtract($resourceDescription): mixed;
 
-    public function isDataTypeSource(DataTypes $type): bool;
+    public function isDataTypeSource(DataType $type): bool;
 }

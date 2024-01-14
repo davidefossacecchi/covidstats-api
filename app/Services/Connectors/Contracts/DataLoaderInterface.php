@@ -8,5 +8,5 @@ interface DataLoaderInterface
 {
     public function load(array $localityIds, DateRange $range): array;
 
-    public function getMaxDateForCollection(DataTypes $types): ?\DateTimeInterface;
+    public function getMaxDateForCollection(DataType $types): ?\DateTimeInterface;
 }

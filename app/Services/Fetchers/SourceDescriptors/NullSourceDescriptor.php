@@ -2,7 +2,7 @@
 
 namespace App\Services\Fetchers\SourceDescriptors;
 
-use App\Services\Connectors\Contracts\DataTypes;
+use App\Services\Connectors\Contracts\DataType;
 use App\Services\Fetchers\Contracts\SourceDescriptorInterface;
 
 class NullSourceDescriptor implements SourceDescriptorInterface
@@ -22,7 +22,7 @@ class NullSourceDescriptor implements SourceDescriptorInterface
         throw new \BadMethodCallException('Source descriptor not set');
     }
 
-    public function isDataTypeSource(DataTypes $type): bool
+    public function isDataTypeSource(DataType $type): bool
     {
         throw new \BadMethodCallException('Source descriptor not set');
     }
