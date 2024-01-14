@@ -5,6 +5,7 @@ namespace App\Services\Connectors;
 use App\Services\Connectors\Contracts\DataLoaderInterface;
 use App\Services\Connectors\Contracts\DataPersisterInterface;
 use App\Services\Connectors\Contracts\DataType;
+use App\Services\Connectors\Contracts\LocalityType;
 use App\Services\Connectors\Contracts\PersistingItemTransformerInterface;
 use App\Services\Ranges\DateRange;
 use App\Services\Records\RecordIterator;
@@ -53,7 +54,7 @@ class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterfa
         }
     }
 
-    public function load(array $localityIds, DateRange $range): array
+    public function load(LocalityType $type, int $localityId, DateRange $range): array
     {
         return [];
     }

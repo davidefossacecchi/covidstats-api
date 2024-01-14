@@ -2,7 +2,7 @@
 
 namespace App\Services\Connectors\Contracts;
 
-enum LocalityTypes: int
+enum LocalityType: int
 {
     case PROVINCE = 0;
     case REGION = 1;

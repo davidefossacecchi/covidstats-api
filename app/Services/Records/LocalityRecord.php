@@ -2,20 +2,20 @@
 
 namespace App\Services\Records;
 
-use App\Services\Connectors\Contracts\LocalityTypes;
+use App\Services\Connectors\Contracts\LocalityType;
 
 class LocalityRecord
 {
     public function __construct(
-        private readonly LocalityTypes $type,
-        private readonly string $name,
-        private readonly ?int $externalId = null
+        private readonly LocalityType $type,
+        private readonly string       $name,
+        private readonly ?int         $externalId = null
     )
     {
 
     }
 
-    public function getType(): LocalityTypes
+    public function getType(): LocalityType
     {
         return $this->type;
     }

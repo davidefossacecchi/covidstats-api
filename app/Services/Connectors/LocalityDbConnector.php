@@ -3,7 +3,7 @@
 namespace App\Services\Connectors;
 
 use App\Services\Connectors\Contracts\LocalityConnectorInterface;
-use App\Services\Connectors\Contracts\LocalityTypes;
+use App\Services\Connectors\Contracts\LocalityType;
 use App\Services\Records\LocalityRecord;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +20,7 @@ class LocalityDbConnector implements LocalityConnectorInterface
     }
 
 
-    public function getLocalityId(LocalityTypes $type, string $name, int $externalId = null): int
+    public function getLocalityId(LocalityType $type, string $name, int $externalId = null): int
     {
         $localities = $this->getLocalityCacheByType($type);
         if (isset($externalId)) {
@@ -40,7 +40,7 @@ class LocalityDbConnector implements LocalityConnectorInterface
         return (int) $persisted['id'];
     }
 
-    public function getLocalities(LocalityTypes $type): array
+    public function getLocalities(LocalityType $type): array
     {
         return $this->getLocalityCacheByType($type)->toArray();
     }
@@ -48,7 +48,7 @@ class LocalityDbConnector implements LocalityConnectorInterface
     /**
      * Returns the cached list of localities by locality type
      */
-    protected function getLocalityCacheByType(LocalityTypes $type): Collection
+    protected function getLocalityCacheByType(LocalityType $type): Collection
     {
         if(false == isset(self::$cache[$type->value])) {
             $localities = DB::table(self::TABLE)
@@ -64,7 +64,7 @@ class LocalityDbConnector implements LocalityConnectorInterface
     /**
      * Writes a locality data to db and returns the locality id
      */
-    protected function persistLocality(LocalityTypes $type, array $data): array
+    protected function persistLocality(LocalityType $type, array $data): array
     {
         $locality = array_merge($data, [
             'type'        => $type->value,

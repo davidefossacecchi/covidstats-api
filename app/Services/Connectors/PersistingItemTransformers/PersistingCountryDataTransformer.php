@@ -4,7 +4,7 @@ namespace App\Services\Connectors\PersistingItemTransformers;
 
 use App\Services\Connectors\Contracts\DataType;
 use App\Services\Connectors\Contracts\LocalityConnectorInterface;
-use App\Services\Connectors\Contracts\LocalityTypes;
+use App\Services\Connectors\Contracts\LocalityType;
 use App\Services\Connectors\Contracts\PersistingItemTransformerInterface;
 use App\Services\Records\Contracts\RecordInterface;
 use App\Services\Records\CountryRecord;

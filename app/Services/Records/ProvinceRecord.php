@@ -2,8 +2,8 @@
 
 namespace App\Services\Records;
 
-use App\Services\Connectors\Contracts\LocalityTypes;
 use App\Services\Connectors\Contracts\DataType;
+use App\Services\Connectors\Contracts\LocalityType;
 use App\Services\Records\Contracts\RecordInterface;
 
 class ProvinceRecord implements RecordInterface
@@ -39,7 +39,7 @@ class ProvinceRecord implements RecordInterface
 
     public function getLocality(): LocalityRecord
     {
-        return new LocalityRecord(LocalityTypes::PROVINCE, $this->locality, $this->localityCode);
+        return new LocalityRecord(LocalityType::PROVINCE, $this->locality, $this->localityCode);
     }
 
     public function getTotalCases(): int

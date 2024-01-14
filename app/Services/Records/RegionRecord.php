@@ -2,8 +2,8 @@
 
 namespace App\Services\Records;
 
-use App\Services\Connectors\Contracts\LocalityTypes;
 use App\Services\Connectors\Contracts\DataType;
+use App\Services\Connectors\Contracts\LocalityType;
 use App\Services\Records\Contracts\RecordInterface;
 
 class RegionRecord implements RecordInterface
@@ -52,7 +52,7 @@ class RegionRecord implements RecordInterface
 
     public function getLocality(): LocalityRecord
     {
-        return new LocalityRecord(LocalityTypes::REGION, $this->locality, $this->localityCode);
+        return new LocalityRecord(LocalityType::REGION, $this->locality, $this->localityCode);
     }
 
     public function getTotalPositives(): int
