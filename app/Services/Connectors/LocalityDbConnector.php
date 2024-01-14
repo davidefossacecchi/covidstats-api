@@ -45,6 +45,18 @@ class LocalityDbConnector implements LocalityConnectorInterface
         return $this->getLocalityCacheByType($type)->toArray();
     }
 
+    public function getLocality(int $id): ?array
+    {
+        $locality = DB::table(self::TABLE)
+            ->where('id', $id)
+            ->first();
+
+        return isset($locality)
+            ? (array) $locality
+            : null;
+    }
+
+
     /**
      * Returns the cached list of localities by locality type
      */
@@ -52,7 +64,9 @@ class LocalityDbConnector implements LocalityConnectorInterface
     {
         if(false == isset(self::$cache[$type->value])) {
             $localities = DB::table(self::TABLE)
+                ->select(['id', 'external_id', 'name'])
                 ->where('type', $type->value)
+                ->orderBy('name')
                 ->get();
 
             self::$cache[$type->value] = $localities->map(fn ($item) => (array) $item);

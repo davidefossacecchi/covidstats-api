@@ -20,4 +20,14 @@ final class DateRange
 
         return true;
     }
+
+    public function getFrom(): ?\DateTimeInterface
+    {
+        return $this->from;
+    }
+
+    public function getTo(): ?\DateTimeInterface
+    {
+        return $this->to;
+    }
 }

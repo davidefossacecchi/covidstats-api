@@ -13,6 +13,6 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/{localityType}', 'LocalityController@index');
+
+$router->get('/{localityKey}/{localityId}/timepoints', 'TimepointsController@show');

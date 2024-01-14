@@ -5,8 +5,10 @@ namespace App\Services\Connectors;
 use App\Services\Connectors\Contracts\DataLoaderInterface;
 use App\Services\Connectors\Contracts\DataPersisterInterface;
 use App\Services\Connectors\Contracts\DataType;
+use App\Services\Connectors\Contracts\LocalityConnectorInterface;
 use App\Services\Connectors\Contracts\LocalityType;
 use App\Services\Connectors\Contracts\PersistingItemTransformerInterface;
+use App\Services\Connectors\Exceptions\NotFoundLocalityException;
 use App\Services\Ranges\DateRange;
 use App\Services\Records\RecordIterator;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterface
 {
     private array $itemTransformers;
-    public function __construct(PersistingItemTransformerInterface ...$itemTransformers)
+    public function __construct(private readonly LocalityConnectorInterface $localityConnector, PersistingItemTransformerInterface ...$itemTransformers)
     {
         $this->itemTransformers = $itemTransformers;
     }
@@ -56,7 +58,33 @@ class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterfa
 
     public function load(LocalityType $type, int $localityId, DateRange $range): array
     {
-        return [];
+        $locality = $this->localityConnector->getLocality($localityId);
+        if (empty($locality) || $type->value !== (int) $locality['type']) {
+            throw new NotFoundLocalityException('Locality with id '.$localityId.' cannot be found');
+        }
+
+        $collectionKey = match ((int) $locality['type']) {
+            LocalityType::COUNTRY->value => DataType::COUNTRY->value,
+            LocalityType::REGION->value => DataType::REGION->value,
+            LocalityType::PROVINCE->value => DataType::PROVINCE->value
+        };
+
+        $qb = DB::table($collectionKey)
+            ->where('locality_id', $localityId)
+            ->orderBy('date');
+
+        $from = $range->getFrom();
+        $to = $range->getTo();
+
+        if (isset($from)) {
+            $qb->where('date', '>=', $from->format('Y-m-d'));
+        }
+
+        if (isset($to)) {
+            $qb->where('date', '<=', $to->format('Y-m-d'));
+        }
+
+        return $qb->get()->toArray();
     }
 
     public function getMaxDateForCollection(DataType $types): ?\DateTimeInterface
