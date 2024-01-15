@@ -46,11 +46,13 @@ class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterfa
                     break;
                 }
             }
+
+            if (false === $found) {
+                throw new \InvalidArgumentException('Persisting item transformer for record '.get_class($record). 'does not exixts');
+            }
         }
 
-        if (false === $found) {
-            throw new \InvalidArgumentException('Persisting item transformer for record '.get_class($record). 'does not exixts');
-        }
+
 
         // final flush
         foreach ($map as $collectionName => $collectionData) {

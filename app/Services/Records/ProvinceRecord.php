@@ -21,9 +21,7 @@ class ProvinceRecord implements RecordInterface
         $this->locality = $row['denominazione_provincia'] ?? '';
         $this->localityCode = $row['codice_provincia'] ?? 0;
         $this->totalCases = (int)($row['totale_casi'] ?? 0);
-        if (isset($row['data'])) {
-            $this->date = \DateTime::createFromFormat('Y-m-d\TH:i:s', $row['data']);
-        }
+        $this->date = \DateTime::createFromFormat('Y-m-d\TH:i:s', $row['data']);
     }
 
     public function isValid(): bool

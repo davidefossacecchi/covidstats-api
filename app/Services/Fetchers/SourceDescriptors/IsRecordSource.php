@@ -7,7 +7,7 @@ use App\Services\Records\Contracts\RecordInterface;
 
 trait IsRecordSource
 {
-    protected readonly string $recordClass;
+    protected string $recordClass;
 
     protected function setRecordClass(string $recordClass): void
     {

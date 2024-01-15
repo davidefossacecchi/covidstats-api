@@ -10,7 +10,7 @@ interface FetcherInterface
     /**
      * Retrieves data in a specific date range
      */
-    public function pull(DateRange $range): \Iterator;
+    public function pull(DateRange $range): \Iterator & \Countable;
 
     /**
      * Tells if a fetcher is able to fetch a specific data type

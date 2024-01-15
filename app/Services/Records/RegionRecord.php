@@ -34,10 +34,7 @@ class RegionRecord implements RecordInterface
         $this->homeIsolations = (int)($row['isolamento_domiciliare'] ?? 0);
         $this->healed = (int)($row['dimessi_guariti'] ?? 0);
         $this->deaths = (int)($row['deceduti'] ?? 0);
-
-        if (isset($row['data'])) {
-            $this->date = \DateTime::createFromFormat('Y-m-d\TH:i:s', $row['data']);
-        }
+        $this->date = \DateTime::createFromFormat('Y-m-d\TH:i:s', $row['data']);
     }
 
     public function isValid(): bool

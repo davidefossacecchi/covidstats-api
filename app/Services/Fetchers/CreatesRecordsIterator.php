@@ -18,7 +18,7 @@ trait CreatesRecordsIterator
 
     abstract protected function getSourceDescriptor(): SourceDescriptorInterface;
 
-    public function pull(DateRange $range): \Iterator
+    public function pull(DateRange $range): \Iterator & \Countable
     {
         $records = $this->fetch($range);
 
