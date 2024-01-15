@@ -12,11 +12,17 @@ class GithubSourceDescriptor implements SourceDescriptorInterface
         $this->setRecordClass($recordClass);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceUrl(): string
     {
         return 'https://api.github.com/repos/'.$this->repository.'/contents/'.$this->path;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceToExtract($resourceDescription): mixed
     {
         return $resourceDescription['download_url'];

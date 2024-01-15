@@ -5,6 +5,9 @@ namespace App\Services\Fetchers\SourceDescriptors;
 use App\Services\Fetchers\Contracts\SourceListDescriptorInterface;
 use App\Services\Ranges\DateRange;
 
+/**
+ * The source descriptor for the PcmDpc repository
+ */
 class PcmDpcListDescriptor implements SourceListDescriptorInterface
 {
     private readonly string $regexp;
@@ -13,6 +16,9 @@ class PcmDpcListDescriptor implements SourceListDescriptorInterface
         $this->regexp = '/'.$filePrefix.'([0-9]{8})\.csv/';
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isValidSource(array|string $source, DateRange $range): bool
     {
         if (0 === preg_match($this->regexp, $source, $matches)) {

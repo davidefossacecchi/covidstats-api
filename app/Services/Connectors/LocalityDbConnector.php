@@ -14,12 +14,17 @@ class LocalityDbConnector implements LocalityConnectorInterface
 
     private static array $cache = [];
 
+    /**
+     * @inheritDoc
+     */
     public function getLocalityRecordId(LocalityRecord $localityRecord): int
     {
         return $this->getLocalityId($localityRecord->getType(), $localityRecord->getName(), $localityRecord->getExternalId());
     }
 
-
+    /**
+     * @inheritDoc
+     */
     public function getLocalityId(LocalityType $type, string $name, int $externalId = null): int
     {
         $localities = $this->getLocalityCacheByType($type);
@@ -40,11 +45,17 @@ class LocalityDbConnector implements LocalityConnectorInterface
         return (int) $persisted['id'];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getLocalities(LocalityType $type): array
     {
         return $this->getLocalityCacheByType($type)->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getLocality(int $id): ?array
     {
         $locality = DB::table(self::TABLE)

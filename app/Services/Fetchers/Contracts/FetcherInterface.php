@@ -7,7 +7,13 @@ use App\Services\Ranges\DateRange;
 
 interface FetcherInterface
 {
+    /**
+     * Retrieves data in a specific date range
+     */
     public function pull(DateRange $range): \Iterator;
 
+    /**
+     * Tells if a fetcher is able to fetch a specific data type
+     */
     public function fetchDataType(DataType $type): bool;
 }

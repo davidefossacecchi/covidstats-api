@@ -10,7 +10,6 @@ use App\Services\Connectors\Contracts\LocalityType;
 use App\Services\Connectors\Contracts\PersistingItemTransformerInterface;
 use App\Services\Connectors\Exceptions\NotFoundLocalityException;
 use App\Services\Ranges\DateRange;
-use App\Services\Records\RecordIterator;
 use Illuminate\Support\Facades\DB;
 
 class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterface
@@ -21,6 +20,9 @@ class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterfa
         $this->itemTransformers = $itemTransformers;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function persist(\Iterator $records): void
     {
         $map = [];
@@ -56,6 +58,9 @@ class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterfa
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function load(LocalityType $type, int $localityId, DateRange $range): array
     {
         $locality = $this->localityConnector->getLocality($localityId);
@@ -87,6 +92,9 @@ class TimepointsDbConnector implements DataPersisterInterface, DataLoaderInterfa
         return $qb->get()->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getMaxDateForCollection(DataType $types): ?\DateTimeInterface
     {
         $maxDate = DB::table($types->value)

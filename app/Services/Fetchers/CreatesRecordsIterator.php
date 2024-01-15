@@ -10,7 +10,12 @@ use App\Services\Records\ValidFilter;
 
 trait CreatesRecordsIterator
 {
+    /**
+     * Fetch data from the remote source
+     */
     abstract protected function fetch(DateRange $range): array;
+
+
     abstract protected function getSourceDescriptor(): SourceDescriptorInterface;
 
     public function pull(DateRange $range): \Iterator

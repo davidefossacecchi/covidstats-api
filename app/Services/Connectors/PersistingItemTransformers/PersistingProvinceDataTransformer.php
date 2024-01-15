@@ -16,22 +16,33 @@ class PersistingProvinceDataTransformer implements PersistingItemTransformerInte
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function supports(RecordInterface $record): bool
     {
         return $record instanceof ProvinceRecord;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getDataType(): DataType
     {
         return DataType::PROVINCE;
     }
 
-
+    /**
+     * @inheritDoc
+     */
     public function getCollectionUniqueKeys(): array
     {
         return ['locality_id', 'date'];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getRow(RecordInterface $record): array
     {
         /** @var ProvinceRecord $record */

@@ -21,17 +21,24 @@ class RecordsFetcher implements FetcherInterface
     {
     }
 
+
     protected function getSourceDescriptor(): SourceDescriptorInterface
     {
         return $this->source;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function fetchDataType(DataType $type): bool
     {
         return $this->source->isDataTypeSource($type);
     }
 
 
+    /**
+     * @inheritDoc
+     */
     public function fetch(DateRange $range): array
     {
         $records = [];

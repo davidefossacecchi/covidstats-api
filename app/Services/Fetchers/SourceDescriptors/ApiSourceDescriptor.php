@@ -12,11 +12,17 @@ class ApiSourceDescriptor implements SourceDescriptorInterface
         $this->setRecordClass($recordClass);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceUrl(): string
     {
         return $this->url;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceToExtract($resourceDescription): mixed
     {
         return $resourceDescription;

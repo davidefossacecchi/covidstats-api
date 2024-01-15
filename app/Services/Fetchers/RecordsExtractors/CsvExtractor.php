@@ -11,6 +11,9 @@ class CsvExtractor implements RecordsExtractorInterface
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function extractRecords(string|array $resource): array
     {
         $records = [];

@@ -7,5 +7,8 @@ use App\Services\Records\RecordIterator;
 
 interface DataPersisterInterface
 {
-    public function persist(RecordIterator $records): void;
+    /**
+     * Persists records in the persistent collection
+     */
+    public function persist(\Iterator $records): void;
 }

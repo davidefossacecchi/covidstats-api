@@ -17,22 +17,33 @@ class PersistingCountryDataTransformer implements PersistingItemTransformerInter
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function supports(RecordInterface $record): bool
     {
         return $record instanceof CountryRecord;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getDataType(): DataType
     {
         return DataType::COUNTRY;
     }
 
-
+    /**
+     * @inheritDoc
+     */
     public function getCollectionUniqueKeys(): array
     {
         return ['locality_id', 'date'];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getRow(RecordInterface $record): array
     {
         /** @var CountryRecord $record */
